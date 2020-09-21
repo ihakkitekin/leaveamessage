@@ -18,5 +18,5 @@ exports.getPosts = functions.https.onCall(async (data, context) => {
     functions.logger.error(error);
   }
   
-  return `Failed to retrive posts`;
+  throw new functions.https.HttpsError('internal');
 });

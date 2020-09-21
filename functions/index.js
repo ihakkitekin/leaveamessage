@@ -7,5 +7,7 @@ admin.initializeApp({
 });
 
 const { getPosts } = require('./getPosts');
+const { addPost } = require('./addPost');
 
 exports.getPosts = getPosts;
+exports.addPost = addPost;
