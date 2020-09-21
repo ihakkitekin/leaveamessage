@@ -3,15 +3,15 @@ const admin = require("firebase-admin");
 
 exports.addPost = functions.https.onCall(async (data, context) => {
   if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated')
+    throw new functions.https.HttpsError('unauthenticated', 'You need to login to make a post')
   }
 
   if (!data.title) {
-    throw new functions.https.HttpsError('unauthenticated', 'title required')
+    throw new functions.https.HttpsError('unauthenticated', 'Title required')
   }
 
   if (!data.text) {
-    throw new functions.https.HttpsError('unauthenticated', 'text required')
+    throw new functions.https.HttpsError('unauthenticated', 'Text required')
   }
 
   try {
