@@ -31,7 +31,7 @@ export function AddPost() {
       <div className="add-post-field">
         <Input.TextArea rows={3} name="postText" placeholder="Post Text" value={postText} onChange={onChange} required />
       </div>
-      <Button type="primary">Submit</Button>
+      <Button type="primary" htmlType="submit">Submit</Button>
     </form>
   </div>
 }
