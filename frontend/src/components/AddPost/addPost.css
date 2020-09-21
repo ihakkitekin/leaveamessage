@@ -1,0 +1,18 @@
+.add-post {
+  border: 1px solid #efefef;
+  padding: 10px;
+}
+
+.add-post .add-post-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-post .add-post-form > *:not(:last-child) {
+  margin-bottom: 10px;
+} 
+
+.add-post .add-post-form .add-post-field {
+  display: flex;
+  flex-direction: column;
+} 
