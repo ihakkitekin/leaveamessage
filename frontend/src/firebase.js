@@ -13,10 +13,11 @@ firebase.initializeApp({
 
 const app = firebase.app();
 const functions = app.functions();
+const db = app.firestore();
 
 if (process.env.NODE_ENV === 'development') {
   functions.useFunctionsEmulator('http://localhost:5001')
 }
 
 
-export default { functions, app }
+export default { functions, app, db }

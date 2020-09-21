@@ -11,7 +11,10 @@ export function HomePage() {
   const [posts, setPosts] = React.useState([]);
 
   React.useEffect(() => {
-    PostService.getPosts().then(res => setPosts(res))
+    PostService.getPosts().then(res => setPosts(res));
+    PostService.onNewPostCreated((posts) => {
+      setPosts(prev => [...posts, ...prev]);
+    });
   }, []);
 
   return <div className="home-page">

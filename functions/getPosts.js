@@ -3,7 +3,11 @@ const admin = require("firebase-admin");
 
 exports.getPosts = functions.https.onCall(async (data, context) => {
   try {
-    const postsRef = await admin.firestore().collection('posts').get();
+    const postsRef = await admin
+      .firestore()
+      .collection('posts')
+      .orderBy('createdAt', 'desc')
+      .get();
 
     const posts = postsRef.docs.map(doc => {
       return {

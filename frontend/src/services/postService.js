@@ -26,4 +26,21 @@ async function getPosts() {
   return [];
 }
 
-export default { addPost, getPosts }
+async function onNewPostCreated(callBack) {
+  firebase.db
+    .collection('posts')
+    .onSnapshot((snapshot) => {
+      const addedPosts = snapshot
+        .docChanges()
+        .filter(function (change) {
+          return change.type === "added"
+        })
+        .map(change => change.doc.data());
+
+      if (addedPosts.length > 0) {
+        callBack(addedPosts);
+      }
+    })
+}
+
+export default { addPost, getPosts, onNewPostCreated }
