@@ -1,4 +1,4 @@
-
+import firebase from '../firebase';
 
 async function addPost(postTitle, postText) {
   console.log('postTitle:', postTitle)
@@ -6,20 +6,21 @@ async function addPost(postTitle, postText) {
 }
 
 async function getPosts() {
-  return [
-    {
-      title: 'Post Title 1',
-      text: 'Post Text 1',
-    },
-    {
-      title: 'Post Title 2',
-      text: 'Post Text 2',
-    },
-    {
-      title: 'Post Title 3',
-      text: 'Post Text 3',
-    }
-  ]
+  try {
+    const snapshot = await firebase.db.collection("posts").get();
+
+    return snapshot.docs.map(doc => {
+      return {
+        id: doc.id,
+        text: doc.data().text,
+        title: doc.data().title
+      }
+    });
+  } catch (error) {
+    console.error(error)
+  }
+
+  return [];
 }
 
 export default { addPost, getPosts }

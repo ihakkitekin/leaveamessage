@@ -19,7 +19,7 @@ export function HomePage() {
     <LoginContainer />
     <AddPost />
     {posts.map(post => {
-      return <Post key={post.title} title={post.title} text={post.text} />
+      return <Post key={post.id} title={post.title} text={post.text} />
     })}
   </div>
 } 
