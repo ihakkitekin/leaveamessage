@@ -1,9 +1,10 @@
 import React from 'react';
 import './post.css';
+import { Card } from 'antd';
 
-export function Post({ title, text }) {
-  return <div className="post">
-    <h4>{title}</h4>
-    <p>{text}</p>
-  </div>
+export function Post({ post }) {
+  return <Card className="post" hoverable>
+    <h3>{post.title}</h3>
+    <p>{post.text}</p>
+  </Card>
 }

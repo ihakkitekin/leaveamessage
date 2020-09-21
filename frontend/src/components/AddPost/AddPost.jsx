@@ -1,6 +1,7 @@
 import React from 'react';
 import './addPost.css';
 import PostService from '../../services/postService';
+import { Input, Button, TextArea } from 'antd';
 
 export function AddPost() {
   const [postTitle, setPostTitle] = React.useState('');
@@ -22,16 +23,15 @@ export function AddPost() {
   }, [postTitle, postText]);
 
   return <div className="add-post">
+    <h3>Create New Post</h3>
     <form onSubmit={onSubmit} className="add-post-form">
       <div className="add-post-field">
-        <label htmlFor="postTitle">Post Title</label>
-        <input name="postTitle" value={postTitle} onChange={onChange} />
+        <Input name="postTitle" placeholder="Post Title" value={postTitle} onChange={onChange} required />
       </div>
       <div className="add-post-field">
-        <label htmlFor="postText">Post Text</label>
-        <input name="postText" value={postText} onChange={onChange} />
+        <Input.TextArea rows={3} name="postText" placeholder="Post Text" value={postText} onChange={onChange} required />
       </div>
-      <button>Submit</button>
+      <Button type="primary">Submit</Button>
     </form>
   </div>
 }

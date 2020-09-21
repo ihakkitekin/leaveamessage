@@ -2,3 +2,7 @@
   border: 1px solid #efefef;
   padding: 10px;
 }
+
+.post:not(:last-child) {
+  margin-bottom: 10px;
+}

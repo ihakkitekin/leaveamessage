@@ -27,15 +27,26 @@ async function getPosts() {
 }
 
 async function onNewPostCreated(callBack) {
-  firebase.db
+  return firebase.db
     .collection('posts')
+    .orderBy('createdAt', 'desc')
     .onSnapshot((snapshot) => {
       const addedPosts = snapshot
         .docChanges()
         .filter(function (change) {
           return change.type === "added"
         })
-        .map(change => change.doc.data());
+        .map(change => {
+          const data = change.doc.data();
+
+          return {
+            id: change.doc.id,
+            title: data.title,
+            text: data.text,
+            user: data.user,
+            createdAt: data.createdAt
+          }
+        });
 
       if (addedPosts.length > 0) {
         callBack(addedPosts);
