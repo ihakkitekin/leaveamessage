@@ -9,7 +9,7 @@
     ]
   },
   "hosting": {
-    "public": "frontend/public",
+    "public": "frontend/build",
     "ignore": [
       "firebase.json",
       "**/.*",
