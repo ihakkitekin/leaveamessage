@@ -7,15 +7,10 @@ async function addPost(postTitle, postText) {
 
 async function getPosts() {
   try {
-    const snapshot = await firebase.db.collection("posts").get();
+    firebase.functions.useFunctionsEmulator('http://localhost:5001')
+    const posts = await firebase.functions.httpsCallable('getPosts').call();
 
-    return snapshot.docs.map(doc => {
-      return {
-        id: doc.id,
-        text: doc.data().text,
-        title: doc.data().title
-      }
-    });
+    console.log(posts)
   } catch (error) {
     console.error(error)
   }

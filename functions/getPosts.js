@@ -1,7 +1,7 @@
 const functions = require('firebase-functions');
 const admin = require("firebase-admin");
 
-exports.getPosts = functions.https.onRequest(async (request, response) => {
+exports.getPosts = functions.https.onCall(async (data, context) => {
   try {
     const postsRef = await admin.firestore().collection('posts').get();
 
@@ -12,10 +12,11 @@ exports.getPosts = functions.https.onRequest(async (request, response) => {
         text: doc.data().text
       }
     })
-    return response.send(posts);
+
+    return posts;
   } catch (error) {
     functions.logger.error(error);
   }
-
-  return response.sendStatus(500);
+  
+  return `Failed to retrive posts`;
 });

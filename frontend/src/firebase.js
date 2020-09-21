@@ -12,7 +12,7 @@ firebase.initializeApp({
 });
 
 const app = firebase.app();
-const db = app.firestore();
+const functions = app.functions();
 
 
-export default { db, app }
+export default { functions, app }
