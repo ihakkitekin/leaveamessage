@@ -1,0 +1,56 @@
+.avatar {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.avatar .avatar-img {  
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 160px;
+}
+
+:root {
+  --avatar-left-offest: -55px;
+  --avatar-top-offest: -57px;
+}
+
+.avatar .avatar-img.avatar-img-1 {}
+
+.avatar .avatar-img.avatar-img-2 {
+  left: var(--avatar-left-offest);
+}
+
+.avatar .avatar-img.avatar-img-3 {
+  left: calc(var(--avatar-left-offest) * 2);
+}
+
+.avatar .avatar-img.avatar-img-4 {
+  top: var(--avatar-top-offest);
+}
+
+.avatar .avatar-img.avatar-img-5 {
+  left: var(--avatar-left-offest);
+  top: var(--avatar-top-offest);
+}
+
+.avatar .avatar-img.avatar-img-6 {
+  left: calc(var(--avatar-left-offest) * 2);
+  top: var(--avatar-top-offest);
+}
+
+.avatar .avatar-img.avatar-img-7 {
+  top: calc(var(--avatar-top-offest) * 2);
+}
+
+.avatar .avatar-img.avatar-img-8 {
+  left: var(--avatar-left-offest);
+  top: calc(var(--avatar-top-offest) * 2);
+}
+
+.avatar .avatar-img.avatar-img-9 {
+  left: calc(var(--avatar-left-offest) * 2);
+  top: calc(var(--avatar-top-offest) * 2);
+}

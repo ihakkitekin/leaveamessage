@@ -1,0 +1,18 @@
+.set-user-info .ant-modal-body > *:not(:last-child){
+  margin-bottom: 10px;
+}
+
+.set-user-info .avatar-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.set-user-info .avatar-container .avatar-wrapper{
+  cursor: pointer;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.set-user-info .avatar-container .avatar-wrapper[data-selected=true]{
+  background-color: #e6e6e6;
+}
