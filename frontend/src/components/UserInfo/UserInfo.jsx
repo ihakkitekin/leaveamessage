@@ -8,6 +8,6 @@ export function UserInfo() {
 
   return <Card className="user-info" hoverable>
     <h3>{displayName}</h3>
-    <div>{metadata.creationDate}</div>
+    <div>Created At: {metadata.creationTime}</div>
   </Card>
 }

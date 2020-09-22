@@ -3,6 +3,7 @@ import { HomePage } from './pages/Home/Home';
 import { ProfilePage } from './pages/Profile/Profile';
 import { NotFound } from './pages/NotFound/NotFound';
 import { Header } from './components/Header/Header';
+import { MainLoading } from './components/MainLoading/MainLoading';
 import { AuthRoute } from './components/AuthRoute/AuthRoute';
 import { UserContext } from './context/userContext';
 import './App.css';
@@ -15,12 +16,18 @@ import firebase from 'firebase';
 
 function App() {
   const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     firebase.auth().onAuthStateChanged(function (firebaseUser) {
       setUser(firebaseUser);
+      setLoading(false);
     });
   }, []);
+
+  if (loading) {
+    return <MainLoading />
+  }
 
   return (
     <Router>
