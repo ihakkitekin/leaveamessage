@@ -1,9 +1,9 @@
 import React from 'react';
 import './home.css';
-import { Post } from '../components/Post/Post';
-import { AddPost } from '../components/AddPost/AddPost';
-import PostService from '../services/postService';
-import { UserContext } from '../context/userContext';
+import { Post } from '../../components/Post/Post';
+import { AddPost } from '../../components/AddPost/AddPost';
+import PostService from '../../services/postService';
+import { UserContext } from '../../context/userContext';
 
 
 

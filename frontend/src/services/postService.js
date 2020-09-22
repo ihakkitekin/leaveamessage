@@ -26,7 +26,7 @@ async function getPosts() {
   return [];
 }
 
-async function onNewPostCreated(callBack) {
+function onNewPostCreated(callBack) {
   return firebase.db
     .collection('posts')
     .orderBy('createdAt', 'desc')
