@@ -8,19 +8,3 @@
   box-sizing: border-box;
   border-bottom: 1px solid #e6e6e6;
 }
-
-.header .user-container {
-  display: flex;
-  align-items: flex-end;
-  flex-direction: column;
-}
-
-.header .user-container .logout-button {
-  line-height: 1;
-  cursor: pointer;
-  color: #999;
-}
-
-.header .user-container .logout-button:hover {
-  text-decoration: underline;
-}

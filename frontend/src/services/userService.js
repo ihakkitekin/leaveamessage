@@ -1,26 +1,34 @@
 import firebase from '../firebase';
 
-function onSuccessfulLogin(authResult, redirectUrl) {
-  const { additionalUserInfo, user } = authResult;
-
-  if (additionalUserInfo.isNewUser) {
-    // Show New user screen
-  } else {
-    const userInfo = firebase.db
+async function onSuccessfulLogin(user) {
+  try {
+    let userInfo = await firebase.db
       .collection('userInfo')
       .doc(user.uid)
-      .get()
-      .then((snapshot) => snapshot.data())
-      .catch(e => {
-        console.error(e);
-        return null;
-      });
+      .get();
+
+    userInfo = userInfo.data()
+
+    if (!userInfo) {
+      userInfo = await setUserDetail({ nickname: `anonym-${user.uid}`, avatarId: 1 })
+    }
+
+    return { ...user, ...userInfo }
+  } catch (error) {
+    console.error(error);
   }
 }
 
-function setUserDetail(userDetail) {
-  // Implement
+async function setUserDetail(userDetail) {
+  try {
+    const callable = firebase.functions.httpsCallable('updateUserInfo');
+    const result = await callable(userDetail);
+
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 
-export default { onSuccessfulLogin }
+export default { onSuccessfulLogin, setUserDetail }

@@ -6,8 +6,10 @@ admin.initializeApp({
   databaseURL: "https://leaveamessage-a4475.firebaseio.com"
 });
 
-const { getPosts } = require('./getPosts');
-const { addPost } = require('./addPost');
+const { getPosts } = require('./src/getPosts');
+const { addPost } = require('./src/addPost');
+const { updateUserInfo } = require('./src/updateUserInfo');
 
 exports.getPosts = getPosts;
 exports.addPost = addPost;
+exports.updateUserInfo = updateUserInfo;

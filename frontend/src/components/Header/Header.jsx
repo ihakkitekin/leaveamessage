@@ -1,21 +1,18 @@
 import React from 'react';
 import './header.css';
 import { LoginContainer } from '../LoginContainer/LoginContainer';
-import firebase from 'firebase';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../context/userContext';
+import { UserContainer } from '../UserContainer/UserContainer';
 
-export function Header({ user }) {
-  const onSignOut = React.useCallback(() => {
-    firebase.auth().signOut()
-  }, []);
+export function Header() {
+  const user = React.useContext(UserContext);
 
   return <div className="header">
-    <h2>LeaveAMessage</h2>
-    <Link to="/profile">Profile</Link>
+    <Link to="/">
+      <h2>LeaveAMessage</h2>
+    </Link>
     {!user && <LoginContainer />}
-    {user && <div className="user-container">
-      <span>{user.displayName}</span>
-      <span className="logout-button" onClick={onSignOut}>Sign Out</span>
-    </div>}
+    {user && <UserContainer />}
   </div>
 }

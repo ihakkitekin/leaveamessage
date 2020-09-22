@@ -3,13 +3,14 @@ import './setUserInfo.css';
 import { Avatar } from '../../components/Avatar/Avatar';
 import { Modal, Input } from 'antd';
 import { UserContext } from '../../context/userContext';
+import UserService from '../../services/userService';
 
 const AVATARS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 export function SetUserInfo({ visible, onClose }) {
-  const { displayName } = React.useContext(UserContext);
-  const [nickname, setNickname] = React.useState('');
-  const [avatar, setAvatar] = React.useState();
+  const user = React.useContext(UserContext);
+  const [nickname, setNickname] = React.useState(user.nickname);
+  const [avatarId, setAvatar] = React.useState(user.avatarId);
 
   const onChange = React.useCallback((e) => {
     const value = e.currentTarget.value;
@@ -24,8 +25,8 @@ export function SetUserInfo({ visible, onClose }) {
   }, []);
 
   const onConfirm = React.useCallback(() => {
-    console.log('nickname', nickname)
-  }, [nickname]);
+    UserService.setUserDetail({ nickname, avatarId });
+  }, [nickname, avatarId]);
 
   return <Modal
     wrapClassName="set-user-info"
@@ -38,8 +39,8 @@ export function SetUserInfo({ visible, onClose }) {
     <div>
       <h4>Select Your Avatar:</h4>
       <div className="avatar-container">
-        {AVATARS.map(avatarId => {
-          return <div className="avatar-wrapper" data-selected={avatar === avatarId} onClick={() => onAvatarClick(avatarId)} key={`avatar-${avatarId}`}><Avatar id={avatarId} /></div>
+        {AVATARS.map(id => {
+          return <div className="avatar-wrapper" data-selected={avatarId === id} onClick={() => onAvatarClick(id)} key={`avatar-${id}`}><Avatar id={id} /></div>
         })}
       </div>
     </div>

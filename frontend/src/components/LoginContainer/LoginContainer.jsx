@@ -8,7 +8,7 @@ const uiConfig = {
   signInFlow: 'popup',
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
   callbacks: {
-    signInSuccessWithAuthResult: UserService.onSuccessfulLogin,
+    signInSuccessWithAuthResult: () => false,
   },
 }
 

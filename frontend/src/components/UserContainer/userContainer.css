@@ -1,0 +1,21 @@
+.user-container {
+  display: flex;
+}
+
+.user-container .user-login {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.user-container .user-login .logout-button {
+  line-height: 1;
+  cursor: pointer;
+  color: #999;
+}
+
+.user-container .user-login .logout-button:hover {
+  text-decoration: underline;
+}

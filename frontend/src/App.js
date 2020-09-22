@@ -6,6 +6,7 @@ import { Header } from './components/Header/Header';
 import { MainLoading } from './components/MainLoading/MainLoading';
 import { AuthRoute } from './components/AuthRoute/AuthRoute';
 import { UserContext } from './context/userContext';
+import UserService from './services/userService';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -19,8 +20,10 @@ function App() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    firebase.auth().onAuthStateChanged(function (firebaseUser) {
-      setUser(firebaseUser);
+    firebase.auth().onAuthStateChanged(async function (firebaseUser) {
+      const userResult = await UserService.onSuccessfulLogin(firebaseUser);
+
+      setUser(userResult);
       setLoading(false);
     });
   }, []);
