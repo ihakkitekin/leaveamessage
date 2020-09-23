@@ -36,6 +36,6 @@ export function HomePage() {
     {posts.map(post => {
       return <Post key={post.id} post={post} />
     })}
-    <Button onClick={loadOldPosts}>Old Posts</Button>
+    <Button className="load-old-posts-button" onClick={loadOldPosts}>Old Posts</Button>
   </div>
 } 

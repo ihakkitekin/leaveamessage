@@ -32,7 +32,7 @@ exports.getPosts = functions.https.onCall(async (data, context) => {
         text: data.text,
         userNickname: data.userNickname,
         userAvatarId: data.userAvatarId,
-        createdAt: data.createdAt
+        createdAt: doc.createTime
       }
     })
 

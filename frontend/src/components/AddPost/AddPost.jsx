@@ -1,11 +1,12 @@
 import React from 'react';
 import './addPost.css';
 import PostService from '../../services/postService';
-import { Input, Button, TextArea } from 'antd';
+import { Input, Button } from 'antd';
 
 export function AddPost() {
   const [postTitle, setPostTitle] = React.useState('');
   const [postText, setPostText] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
 
   const onChange = React.useCallback((e) => {
     const value = e.currentTarget.value;
@@ -19,8 +20,13 @@ export function AddPost() {
 
   const onSubmit = React.useCallback((e) => {
     e.preventDefault();
-    PostService.addPost(postTitle, postText);
-  }, [postTitle, postText]);
+    if (loading || !postTitle || !postText) return;
+
+    setLoading(true);
+    PostService
+      .addPost(postTitle, postText)
+      .then(() => setLoading(false));
+  }, [postTitle, postText, loading]);
 
   return <div className="add-post">
     <h3>Create New Post</h3>
@@ -31,7 +37,7 @@ export function AddPost() {
       <div className="add-post-field">
         <Input.TextArea rows={3} name="postText" placeholder="Post Text" value={postText} onChange={onChange} required />
       </div>
-      <Button type="primary" htmlType="submit">Submit</Button>
+      <Button type="primary" htmlType="submit" disabled={loading}>Submit</Button>
     </form>
   </div>
 }

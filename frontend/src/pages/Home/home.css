@@ -1,3 +1,7 @@
 .home-page {
   padding: 20px;
 }
+
+.home-page .load-old-posts-button {
+  width: 100%;
+}
