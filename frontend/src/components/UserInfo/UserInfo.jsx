@@ -5,7 +5,7 @@ import { UserContext } from '../../context/userContext';
 import { SetUserInfo } from '../../components/SetUserInfo/SetUserInfo';
 
 export function UserInfo() {
-  const { displayName, metadata } = React.useContext(UserContext);
+  const { nickname, metadata } = React.useContext(UserContext);
   const [showEdit, toggleEdit] = React.useState(false);
 
   const onEditToggle = React.useCallback(() => {
@@ -13,7 +13,7 @@ export function UserInfo() {
   }, []);
 
   return <Card className="user-info" hoverable>
-    <h3>{displayName}</h3>
+    <h3>{nickname}</h3>
     <div>Created At: {metadata.creationTime}</div>
     <div>
       <Button onClick={onEditToggle}>Edit</Button>

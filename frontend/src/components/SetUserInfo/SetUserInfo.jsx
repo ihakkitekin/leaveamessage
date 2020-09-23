@@ -25,7 +25,11 @@ export function SetUserInfo({ visible, onClose }) {
   }, []);
 
   const onConfirm = React.useCallback(() => {
-    UserService.setUserDetail({ nickname, avatarId });
+    UserService
+      .setUserDetail({ nickname, avatarId })
+      .then(() => {
+        onClose();
+      });
   }, [nickname, avatarId]);
 
   return <Modal

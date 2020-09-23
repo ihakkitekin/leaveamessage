@@ -20,12 +20,25 @@ function App() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
+    let unsubscribeUserChange;
+
+
     firebase.auth().onAuthStateChanged(async function (firebaseUser) {
       const userResult = await UserService.onSuccessfulLogin(firebaseUser);
+
+      unsubscribeUserChange = UserService.onUserDetailChange((newUserDetail) => {
+        setUser(prev => {
+          return { ...prev, ...newUserDetail }
+        });
+      }, userResult);
 
       setUser(userResult);
       setLoading(false);
     });
+
+    return () => {
+      typeof unsubscribeUserChange !== 'undefined' && unsubscribeUserChange();
+    }
   }, []);
 
   if (loading) {

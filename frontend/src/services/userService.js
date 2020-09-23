@@ -30,5 +30,18 @@ async function setUserDetail(userDetail) {
   }
 }
 
+function onUserDetailChange(callback, user) {
+  return firebase.db
+    .collection('userInfo')
+    .doc(user.uid)
+    .onSnapshot((snapshot) => {
+      const data = snapshot.data();
 
-export default { onSuccessfulLogin, setUserDetail }
+      if (data) {
+        callback(data);
+      }
+    })
+}
+
+
+export default { onSuccessfulLogin, setUserDetail, onUserDetailChange }

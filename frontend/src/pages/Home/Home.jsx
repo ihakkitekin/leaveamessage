@@ -14,12 +14,12 @@ export function HomePage() {
   const [posts, setPosts] = React.useState([]);
 
   React.useEffect(() => {
-    const unsubscribe = PostService.onNewPostCreated((posts) => {
+    const unsubscribeNewPosts = PostService.onNewPostCreated((posts) => {
       setPosts(prev => [...posts, ...prev]);
     });
 
     return () => {
-      unsubscribe();
+      unsubscribeNewPosts();
     }
   }, []);
 
