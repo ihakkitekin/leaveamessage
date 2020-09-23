@@ -15,5 +15,5 @@ async function init() {
   await remoteConfig.ensureInitialized();
 }
 
-export { init };
+export { init }
 export default remoteConfig;

@@ -34,9 +34,14 @@ exports.getPosts = functions.https.onCall(async (data, context) => {
         userAvatarId: data.userAvatarId,
         createdAt: doc.createTime
       }
-    })
+    });
 
-    return posts;
+    const result = {
+      posts,
+      hasMore: posts.length < 10
+    }
+
+    return result;
   } catch (error) {
     functions.logger.error(error);
   }
