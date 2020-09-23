@@ -24,13 +24,16 @@ function App() {
     let unsubscribeUserChange;
     config.init().then(() => {
       firebase.auth().onAuthStateChanged(async function (firebaseUser) {
-        const userResult = await UserService.onSuccessfulLogin(firebaseUser);
-  
-        unsubscribeUserChange = UserService.onUserDetailChange((newUserDetail) => {
-          setUser(prev => {
-            return { ...prev, ...newUserDetail }
-          });
-        }, userResult);
+        let userResult = null;
+
+        if (firebaseUser) {
+          userResult = await UserService.onSuccessfulLogin(firebaseUser);
+          unsubscribeUserChange = UserService.onUserDetailChange((newUserDetail) => {
+            setUser(prev => {
+              return { ...prev, ...newUserDetail }
+            });
+          }, userResult);
+        }
   
         setUser(userResult);
         setLoading(false);
