@@ -1,4 +1,5 @@
 import firebase from '../firebase';
+import { message } from 'antd';
 
 async function addPost(title, text) {
   try {
@@ -10,7 +11,7 @@ async function addPost(title, text) {
 
     return data;
   } catch (error) {
-    console.error(error)
+    message.error(error.message);
   }
 }
 
@@ -21,7 +22,7 @@ async function getPosts(lastDocId) {
 
     return data;
   } catch (error) {
-    console.error(error)
+    message.error(error.message);
   }
 
   return [];

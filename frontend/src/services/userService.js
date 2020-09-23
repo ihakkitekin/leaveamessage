@@ -1,4 +1,5 @@
 import firebase from '../firebase';
+import { message } from 'antd';
 
 async function onSuccessfulLogin(user) {
   try {
@@ -15,7 +16,7 @@ async function onSuccessfulLogin(user) {
 
     return { ...user, ...userInfo }
   } catch (error) {
-    console.error(error);
+    message.error(error.message);
   }
 }
 
@@ -26,7 +27,7 @@ async function setUserDetail(userDetail) {
 
     return result;
   } catch (error) {
-    console.error(error);
+    message.error(error.message);
   }
 }
 

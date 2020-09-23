@@ -7,7 +7,6 @@ import { UserContext } from '../../context/userContext';
 import { Button } from 'antd';
 
 
-
 export function HomePage() {
   const user = React.useContext(UserContext);
 
