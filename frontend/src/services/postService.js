@@ -14,9 +14,10 @@ async function addPost(title, text) {
   }
 }
 
-async function getPosts() {
+async function getPosts(lastDocId) {
   try {
-    const { data } = await firebase.functions.httpsCallable('getPosts').call();
+    const callable = firebase.functions.httpsCallable('getPosts')
+    const { data } = await callable({ lastDocId });
 
     return data;
   } catch (error) {
@@ -26,10 +27,12 @@ async function getPosts() {
   return [];
 }
 
+// TODO: There might be posts missing here if more than 10 created at the same time
 function onNewPostCreated(callBack) {
   return firebase.db
     .collection('posts')
     .orderBy('createdAt', 'desc')
+    .limit(10)
     .onSnapshot((snapshot) => {
       const addedPosts = snapshot
         .docChanges()
@@ -43,7 +46,8 @@ function onNewPostCreated(callBack) {
             id: change.doc.id,
             title: data.title,
             text: data.text,
-            user: data.user,
+            userNickname: data.userNickname,
+            userAvatarId: data.userAvatarId,
             createdAt: data.createdAt
           }
         });

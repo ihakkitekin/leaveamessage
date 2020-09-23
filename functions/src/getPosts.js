@@ -3,17 +3,36 @@ const admin = require("firebase-admin");
 
 exports.getPosts = functions.https.onCall(async (data, context) => {
   try {
-    const postsRef = await admin
+    const lastDocId = data ? data.lastDocId : null;
+    let lastDoc = null;
+    let postRef = admin
       .firestore()
       .collection('posts')
       .orderBy('createdAt', 'desc')
-      .get();
+      .limit(10);
 
-    const posts = postsRef.docs.map(doc => {
+    if (lastDocId) {
+      lastDoc = await admin.firestore().collection('posts').doc(lastDocId).get();
+
+      if (!lastDoc.data()) {
+        functions.logger.warn(`Starting point doc not found for ${lastDocId}.`);
+        return [];
+      }
+
+      postRef = postRef.startAfter(lastDoc);
+    }
+
+    const postsDocs = await postRef.get();
+
+    const posts = postsDocs.docs.map(doc => {
+      const data = doc.data();
       return {
         id: doc.id,
-        title: doc.data().title,
-        text: doc.data().text
+        title: data.title,
+        text: data.text,
+        userNickname: data.userNickname,
+        userAvatarId: data.userAvatarId,
+        createdAt: data.createdAt
       }
     })
 

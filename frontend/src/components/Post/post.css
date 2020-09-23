@@ -6,3 +6,17 @@
 .post:not(:last-child) {
   margin-bottom: 10px;
 }
+
+.post .post-user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.post .post-user-info > *:not(:last-child) {
+  margin-right: 10px;
+}
+
+.post .post-user-info .post-timestamp {
+  margin-left: auto;
+}

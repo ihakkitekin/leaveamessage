@@ -15,12 +15,21 @@ exports.addPost = functions.https.onCall(async (data, context) => {
   }
 
   try {
-    const postsRef = await admin.firestore().collection('posts');
+    const userInfoDoc = await admin
+      .firestore()
+      .collection('userInfo')
+      .doc(context.auth.uid)
+      .get();
+
+    const userInfo = userInfoDoc.data();
+
+    const postsRef = admin.firestore().collection('posts');
 
     const post = await postsRef.add({
       title: data.title,
       text: data.text,
-      user: context.auth.uid,
+      userNickname: userInfo.nickname,
+      userAvatarId: userInfo.avatarId,      
       createdAt: new Date()
     })
 
