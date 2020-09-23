@@ -35,24 +35,32 @@ function onNewPostCreated(callBack) {
     .collection('posts')
     .orderBy('createdAt', 'desc')
     .limit(config.getNumber('POST_PAGINATION_COUNT'))
-    .onSnapshot((snapshot) => {
-      const addedPosts = snapshot
+    .onSnapshot(async (snapshot) => {
+      const changedDocs = snapshot
         .docChanges()
         .filter(function (change) {
           return change.type === "added"
-        })
-        .map(change => {
-          const data = change.doc.data();
-
-          return {
-            id: change.doc.id,
-            title: data.title,
-            text: data.text,
-            userNickname: data.userNickname,
-            userAvatarId: data.userAvatarId,
-            createdAt: data.createdAt
-          }
         });
+
+      const addedPosts = []
+
+      for (let i = 0; i < changedDocs.length; i++) {
+        const change = changedDocs[i];
+
+        const data = change.doc.data();
+        const userInfoDoc = await data.userInfo.get();
+        const userInfo = userInfoDoc.data();
+
+        addedPosts.push({
+          id: change.doc.id,
+          title: data.title,
+          text: data.text,
+          userNickname: userInfo.nickname,
+          userAvatarId: userInfo.avatarId,
+          createdAt: data.createdAt.seconds * 1000
+        });
+      }
+
 
       if (addedPosts.length > 0) {
         callBack(addedPosts);

@@ -23,18 +23,23 @@ exports.getPosts = functions.https.onCall(async (data, context) => {
     }
 
     const postsDocs = await postRef.get();
+    const posts = [];
 
-    const posts = postsDocs.docs.map(doc => {
+    for (let i = 0; i < postsDocs.docs.length; i++) {
+      const doc = postsDocs.docs[i];
       const data = doc.data();
-      return {
+      const userInfoDoc = await data.userInfo.get();
+      const userInfo = userInfoDoc.data();
+
+      posts.push({
         id: doc.id,
         title: data.title,
         text: data.text,
-        userNickname: data.userNickname,
-        userAvatarId: data.userAvatarId,
-        createdAt: doc.createTime
-      }
-    });
+        userNickname: userInfo.nickname,
+        userAvatarId: userInfo.avatarId,
+        createdAt: doc.createTime._seconds * 1000
+      });
+    }
 
     const result = {
       posts,

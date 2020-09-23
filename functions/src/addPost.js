@@ -21,15 +21,12 @@ exports.addPost = functions.https.onCall(async (data, context) => {
       .doc(context.auth.uid)
       .get();
 
-    const userInfo = userInfoDoc.data();
-
     const postsRef = admin.firestore().collection('posts');
 
     const post = await postsRef.add({
       title: data.title,
       text: data.text,
-      userNickname: userInfo.nickname,
-      userAvatarId: userInfo.avatarId,      
+      userInfo: userInfoDoc.ref,      
       createdAt: new Date()
     })
 

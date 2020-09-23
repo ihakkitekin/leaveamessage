@@ -8,7 +8,7 @@ export function Post({ post }) {
     <div className="post-user-info">
       <Avatar id={post.userAvatarId} />
       <b>{post.userNickname}</b>
-      <i className="post-timestamp">posted at {new Date(post.createdAt.seconds * 1000).toLocaleString()}</i>
+      <i className="post-timestamp">posted at {new Date(post.createdAt).toLocaleString()}</i>
     </div>
     <h3>{post.title}</h3>
     <p>{post.text}</p>
