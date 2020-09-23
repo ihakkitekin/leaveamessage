@@ -24,11 +24,13 @@ exports.getPosts = functions.https.onCall(async (data, context) => {
 
     const postsDocs = await postRef.get();
     const posts = [];
+    const userInfoRefs = postsDocs.docs.map(d => d.data().userInfo.get());
+    const userInfoDocs = await Promise.all(userInfoRefs);
 
     for (let i = 0; i < postsDocs.docs.length; i++) {
       const doc = postsDocs.docs[i];
+      const userInfoDoc = userInfoDocs[i];
       const data = doc.data();
-      const userInfoDoc = await data.userInfo.get();
       const userInfo = userInfoDoc.data();
 
       posts.push({
