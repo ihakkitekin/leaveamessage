@@ -14,10 +14,11 @@ firebase.initializeApp({
 const app = firebase.app();
 const functions = app.functions();
 const db = app.firestore();
+const remoteConfig = app.remoteConfig();
 
 if (process.env.NODE_ENV === 'development') {
   functions.useFunctionsEmulator('http://localhost:5001')
 }
 
 
-export default { functions, app, db }
+export default { functions, app, db, remoteConfig }

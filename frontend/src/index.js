@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './firebase';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

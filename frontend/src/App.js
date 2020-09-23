@@ -14,6 +14,7 @@ import {
   Route
 } from "react-router-dom";
 import firebase from 'firebase';
+import * as config from './utils/config';
 
 function App() {
   const [user, setUser] = React.useState(null);
@@ -21,19 +22,19 @@ function App() {
 
   React.useEffect(() => {
     let unsubscribeUserChange;
-
-
-    firebase.auth().onAuthStateChanged(async function (firebaseUser) {
-      const userResult = await UserService.onSuccessfulLogin(firebaseUser);
-
-      unsubscribeUserChange = UserService.onUserDetailChange((newUserDetail) => {
-        setUser(prev => {
-          return { ...prev, ...newUserDetail }
-        });
-      }, userResult);
-
-      setUser(userResult);
-      setLoading(false);
+    config.init().then(() => {
+      firebase.auth().onAuthStateChanged(async function (firebaseUser) {
+        const userResult = await UserService.onSuccessfulLogin(firebaseUser);
+  
+        unsubscribeUserChange = UserService.onUserDetailChange((newUserDetail) => {
+          setUser(prev => {
+            return { ...prev, ...newUserDetail }
+          });
+        }, userResult);
+  
+        setUser(userResult);
+        setLoading(false);
+      });
     });
 
     return () => {

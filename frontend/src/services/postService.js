@@ -1,4 +1,5 @@
 import firebase from '../firebase';
+import config from '../utils/config';
 import { message } from 'antd';
 
 async function addPost(title, text) {
@@ -33,7 +34,7 @@ function onNewPostCreated(callBack) {
   return firebase.db
     .collection('posts')
     .orderBy('createdAt', 'desc')
-    .limit(10)
+    .limit(config.getNumber('POST_PAGINATION_COUNT'))
     .onSnapshot((snapshot) => {
       const addedPosts = snapshot
         .docChanges()
