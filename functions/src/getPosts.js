@@ -38,7 +38,7 @@ exports.getPosts = functions.https.onCall(async (data, context) => {
 
     const result = {
       posts,
-      hasMore: posts.length < 10
+      hasMore: posts.length >= 10
     }
 
     return result;
