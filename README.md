@@ -1,6 +1,3 @@
 # leaveamessage
 An application where people can post their thoughts.
-
-# TODO
-- Update ui for better looks
-- Get posts with pagination
+https://leaveamessage-a4475.firebaseapp.com
